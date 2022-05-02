@@ -1,0 +1,25 @@
+[user]
+	email = paul.larson@canonical.com
+	name = Paul Larson
+[core]
+	editor = vim
+[color]
+	ui = auto
+
+[url "git+ssh://pwlars@git.launchpad.net/"]
+	insteadof = lp:
+
+[alias]
+	# List recently merged commits in a nicer format
+	ls = log --pretty=format:"%C(yellow)%h|%ad|%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	# Try to delete the remote branch, and if that works, delete the
+	# local one
+	# This should NOT delete the local branch if it is not merged though
+	kill = "!f() { git push pwlars -d $1 && git branch -d $1; }; f"
+	# List local branches sorted by author date, sorted descending order
+	bage = for-each-ref --sort='authordate:iso' --format=' %(authordate:short)%09%(refname:short)' refs/heads
+	# List unmerged branches
+	unmerged = branch --no-merged master
+	uncommit = reset --soft HEAD~
+	unstage = reset HEAD --
+
