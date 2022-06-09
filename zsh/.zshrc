@@ -47,14 +47,16 @@ source ~/antigen.zsh
 antigen theme romkatv/powerlevel10k
 antigen bundle zsh-users/zsh-autosuggestions
 #antigen bundle unixorn/fzf-zsh-plugin@main
+antigen bundle command-not-found
 antigen apply
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Key bindings
-#bindkey '^ ' autosuggest-execute
-#ctrl-enter for autosuggest-execute
+#ctrl-space for autosuggest-execute
 bindkey '^ ' autosuggest-execute
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
 
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bin:~/go/bin
