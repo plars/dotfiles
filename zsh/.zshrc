@@ -43,7 +43,7 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-source ~/antigen.zsh
+source /home/plars/antigen.zsh
 antigen theme romkatv/powerlevel10k
 antigen bundle zsh-users/zsh-autosuggestions
 #antigen bundle unixorn/fzf-zsh-plugin@main
@@ -60,3 +60,5 @@ bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
 export PATH=$PATH:~/bin:~/go/bin
+
+export PATH="$HOME/.poetry/bin:$PATH"

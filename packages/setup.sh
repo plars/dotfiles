@@ -20,6 +20,12 @@ if which apt > /dev/null; then
     sudo apt update
 fi
 
+# Misc packages
+# I know curl installs are terrible, but this one keeps it in an isolated
+# place (~/.poetry) and enables self-update
+echo "Installing poetry..."
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+
 find * -name "*.list" | while read fn; do
     cmd="${fn%.*}"
     set -- $cmd
