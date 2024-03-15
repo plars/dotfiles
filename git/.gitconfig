@@ -1,6 +1,7 @@
 [user]
 	email = paul.larson@canonical.com
 	name = Paul Larson
+	signingkey = 19941E28951282FC
 [core]
 	editor = vim
 [color]
@@ -19,7 +20,26 @@
 	# List local branches sorted by author date, sorted descending order
 	bage = for-each-ref --sort='authordate:iso' --format=' %(authordate:short)%09%(refname:short)' refs/heads
 	# List unmerged branches
-	unmerged = branch --no-merged master
+	unmerged = branch --no-merged main
 	uncommit = reset --soft HEAD~
 	unstage = reset HEAD --
+	# only remove local branches if they are already landed in main
+	cleanup = "!git branch --merged main | grep  -v '\\*\\|main' | xargs -n 1 -r git branch -d"
 
+
+
+[push]
+	default = simple
+	gpgSign = if-asked
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[init]
+	defaultBranch = main
