@@ -17,4 +17,7 @@ find . -name ".tmux*" | while read fn; do
     symlink "$SOURCE/$fn" "$DESTINATION/$fn"
 done
 
+# Install tmux plugins
+"$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+
 success "Finished configuring tmux."
