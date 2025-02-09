@@ -11,9 +11,12 @@ font-feature = -liga
 font-feature = -dlig
 
 # Keybindings
+# Default keybindings at https://gist.github.com/hensg/43bc71c21d1f79385892352a390aa2ca
 keybind = shift+ctrl+|=new_split:right
 keybind = shift+ctrl+-=new_split:down
 keybind = alt+h=goto_split:left
 keybind = alt+j=goto_split:bottom
 keybind = alt+k=goto_split:top
 keybind = alt+l=goto_split:right
+keybind = performable:ctrl+c=copy_to_clipboard
+
