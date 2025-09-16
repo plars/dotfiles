@@ -5,7 +5,6 @@ shell-integration = zsh
 theme = Adventure
 cursor-invert-fg-bg = true
 background-opacity = 0.9
-window-theme = ghostty
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
