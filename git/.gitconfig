@@ -30,7 +30,11 @@
 
 [push]
 	default = simple
-	gpgSign = if-asked
+	# I used to have this set to if-asked and it always worked. One day it literally started failing about 10min. apart!
+	# I think something is wrong with github actually, and changing this didn't fix it immediately, but it worked after retrying about 10 times.
+	# I don't think it should matter, because GH handles signed commits but not signed pushes, but let's leave it and see
+	# gpgSign = if-asked
+	gpgSign = false
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
