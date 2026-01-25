@@ -62,5 +62,5 @@ bindkey '^[[1;5C' forward-word
 
 export PATH=$PATH:~/bin:~/go/bin
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 alias ls="ls -F --color=auto"
