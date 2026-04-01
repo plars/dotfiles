@@ -1,7 +1,8 @@
 [user]
-	email = paul.larson@canonical.com
+	email = pwlars@gmail.com
+	#email = paul.larson@canonical.com
 	name = Paul Larson
-	signingkey = 19941E28951282FC
+	#signingkey = 19941E28951282FC
 [core]
 	editor = vim
 [color]
@@ -41,10 +42,10 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
-[commit]
-	gpgsign = true
-[tag]
-	gpgSign = true
+#[commit]
+#	gpgsign = true
+#[tag]
+#	gpgSign = true
 [init]
 	defaultBranch = main
 [filter "lfs"]
