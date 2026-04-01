@@ -1,0 +1,35 @@
+#!/bin/bash
+# Installs system and user-level packages.
+# chezmoi runs this once per machine (re-runs if this file changes).
+set -euo pipefail
+
+DOTFILES_DIR="{{ .chezmoi.sourceDir }}"
+
+# ── Homebrew ──────────────────────────────────────────────────────────────────
+if ! command -v brew &>/dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: full Brewfile (includes casks)
+brew bundle --file="$DOTFILES_DIR/packages/Brewfile"
+
+{{ else if eq .chezmoi.os "linux" -}}
+# Linux: CLI tools via Homebrew (works on both Ubuntu and Bluefin)
+brew bundle --file="$DOTFILES_DIR/packages/Brewfile.linux"
+
+# ── System packages ────────────────────────────────────────────────────────
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+sudo apt-get update -q
+xargs sudo apt-get install -y < "$DOTFILES_DIR/packages/apt.list"
+
+{{ else if eq .chezmoi.osRelease.id "fedora" -}}
+# Bluefin / Fedora Silverblue: layer packages via rpm-ostree
+# Note: changes take effect after reboot (or use --apply-live if supported)
+if [[ -f "$DOTFILES_DIR/packages/rpm-ostree.list" ]]; then
+    xargs rpm-ostree install --idempotent < "$DOTFILES_DIR/packages/rpm-ostree.list" || true
+    echo "rpm-ostree packages staged — reboot to apply if not using --apply-live"
+fi
+{{ end -}}
+{{ end -}}

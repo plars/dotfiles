@@ -1,0 +1,102 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Set up the prompt
+autoload -Uz promptinit
+promptinit
+prompt adam1
+
+setopt histignorealldups sharehistory
+
+# Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
+
+# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
+
+# Use modern completion system
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+{{ if eq .chezmoi.os "linux" -}}
+eval "$(dircolors -b)"
+{{ end -}}
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# Homebrew — detect prefix by location rather than hardcoding per-OS
+for _brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+  if [[ -x "$_brew_prefix/bin/brew" ]]; then
+    eval "$($_brew_prefix/bin/brew shellenv)"
+    break
+  fi
+done
+unset _brew_prefix
+
+source ~/.antigen.zsh
+antigen theme romkatv/powerlevel10k
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle command-not-found
+antigen apply
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Key bindings
+bindkey '^ ' autosuggest-execute  # ctrl-space: autosuggest-execute
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
+# fzf key bindings — check multiple install locations
+for _fzf_bindings in \
+  "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.zsh" \
+  "/usr/share/doc/fzf/examples/key-bindings.zsh" \
+  "/usr/share/fzf/key-bindings.zsh"; do
+  [[ -f "$_fzf_bindings" ]] && { source "$_fzf_bindings"; break; }
+done
+unset _fzf_bindings
+
+export PATH=$PATH:~/bin:~/go/bin
+export PATH="$HOME/.local/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin" -}}
+alias ls="ls -G -F"
+{{ else -}}
+alias ls="ls -F --color=auto"
+{{ end -}}
+alias history='fc -il 1'
+
+# kubectl aliases
+# get all the containers in a pod
+# arg1 is namespace, arg2 is the pod name
+alias k-pod-containers="kubectl -n $1 get pods $0 -o jsonpath='{.spec.containers[*].name}'"
+
+# Functions
+# Set tab title
+tabtitle() {
+  printf "\e]2;$1\a"
+}
+
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+command -v atuin &>/dev/null && eval "$(atuin init --disable-up-arrow zsh)"
