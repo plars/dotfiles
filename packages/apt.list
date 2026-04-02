@@ -1,0 +1,5 @@
+virtualenv
+zsh
+fonts-powerline
+python3-pynvim
+neovim

@@ -1,9 +1,15 @@
-tap 'homebrew/cask-versions'
-tap 'homebrew/cask-drivers'
-tap 'homebrew/services'
-tap 'buo/cask-upgrade'
-tap 'mongodb/brew'
+tap "homebrew/cask-versions"
+tap "homebrew/cask-drivers"
+tap "homebrew/services"
+tap "buo/cask-upgrade"
+tap "mongodb/brew"
 
-cask 'iterm2'
-cask 'visual-studio-code'
+# User CLI tools
+brew "atuin"
+brew "fzf"
+brew "gh"
+brew "git-lfs"
 
+# macOS-only apps
+cask "iterm2"
+cask "visual-studio-code"
