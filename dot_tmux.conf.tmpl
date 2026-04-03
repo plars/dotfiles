@@ -35,6 +35,9 @@ set -ag terminal-overrides ",*:RGB"
 # Remove delay after Escape (default 500ms breaks vim/neovim)
 set -g escape-time 0
 
+# Forward focus events to programs running inside panes (needed for neovim autoread etc.)
+set -g focus-events on
+
 # Increase scrollback buffer (default is 2000)
 set -g history-limit 50000
 
