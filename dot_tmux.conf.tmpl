@@ -103,11 +103,14 @@ set -g status-left-length 100
 set -g status-right-length 100
 
 # Session indicator — solid powerline arrow () right edge, prefix turns it red
-set -g status-left "#[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=default]#[fg=#{@thm_crust},bg=#{?client_prefix,#{@thm_red},#{@thm_green}},bold] #S #[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=default]"
+set -g status-left "#[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=#{@thm_mantle}]#[fg=#{@thm_crust},bg=#{?client_prefix,#{@thm_red},#{@thm_green}},bold] #S #[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=#{@thm_mantle}]"
 
 # Window list — solid powerline arrows () and () matching the right-side modules
-set -g window-status-format "#[fg=#{@thm_surface0},bg=default]#[fg=#{@thm_overlay_2},bg=#{@thm_surface0}] #I #W #[fg=#{@thm_surface0},bg=default]"
-set -g window-status-current-format "#[fg=#{@thm_mauve},bg=default]#[fg=#{@thm_crust},bg=#{@thm_mauve},bold] #I #W #[fg=#{@thm_mauve},bg=default]"
+# Clear tmux's default window-status-style (colour18/colour19) so it doesn't bleed into the wings/body
+set -g window-status-style "bg=#{@thm_mantle},fg=#{@thm_overlay_2}"
+set -g window-status-current-style "bg=#{@thm_mantle},fg=#{@thm_mauve}"
+set -g window-status-format "#[fg=#{@thm_surface0},bg=#{@thm_mantle}]#[fg=#{@thm_overlay_2},bg=#{@thm_surface0}] #I #W #[fg=#{@thm_surface0},bg=#{@thm_mantle}]"
+set -g window-status-current-format "#[fg=#{@thm_mauve},bg=#{@thm_mantle}]#[fg=#{@thm_crust},bg=#{@thm_mauve},bold] #I #W #[fg=#{@thm_mauve},bg=#{@thm_mantle}]"
 
 set -g status-right "#{E:@catppuccin_status_cpu}"
 set -ag status-right "#{E:@catppuccin_status_date_time}"
