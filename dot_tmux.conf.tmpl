@@ -27,6 +27,9 @@ bind -n M-j select-pane -D
 bind -n M-n next-window
 bind -n M-p previous-window
 
+# Remove delay after Escape (default 500ms breaks vim/neovim)
+set -g escape-time 0
+
 # Mouse support
 set -g mouse on
 
