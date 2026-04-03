@@ -4,7 +4,6 @@ shell-integration = zsh
 # Theme
 theme = Adventure
 cursor-invert-fg-bg = true
-background-opacity = 0.9
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
