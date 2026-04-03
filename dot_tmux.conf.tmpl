@@ -27,6 +27,11 @@ bind -n M-j select-pane -D
 bind -n M-n next-window
 bind -n M-p previous-window
 
+# True color support — sets inner $TERM and tells tmux to pass RGB through
+# from whatever terminal is on the outside (Ghostty, etc.)
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",*:RGB"
+
 # Remove delay after Escape (default 500ms breaks vim/neovim)
 set -g escape-time 0
 
