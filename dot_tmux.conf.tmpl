@@ -51,6 +51,10 @@ set -g update-environment "WAYLAND_DISPLAY DISPLAY XDG_RUNTIME_DIR"
 # Vi keybindings in copy mode
 setw -g mode-keys vi
 
+# Reduce scroll speed for touchpad (default is 5 lines per wheel event)
+bind -T copy-mode-vi WheelUpPane   select-pane \; send-keys -X -N 1 scroll-up
+bind -T copy-mode-vi WheelDownPane select-pane \; send-keys -X -N 1 scroll-down
+
 # Copy to system clipboard and PRIMARY selection (for middle-click)
 unbind -T copy-mode-vi Enter
 {{ if eq .chezmoi.os "darwin" -}}
