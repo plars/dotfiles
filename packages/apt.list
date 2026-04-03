@@ -3,3 +3,5 @@ zsh
 fonts-powerline
 python3-pynvim
 neovim
+wl-clipboard
+xclip
