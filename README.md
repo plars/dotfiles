@@ -77,6 +77,7 @@ chezmoi status
 | `dot_p10k.zsh` | `~/.p10k.zsh` |
 | `dot_antigen.zsh` | `~/.antigen.zsh` |
 | `dot_config/ghostty/config` | `~/.config/ghostty/config` |
+| `dot_config/nvim/` | `~/.config/nvim/` |
 
 ## Packages
 

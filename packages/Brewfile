@@ -10,6 +10,18 @@ brew "fzf"
 brew "gh"
 brew "git-lfs"
 
+# Neovim and dependencies
+brew "neovim"
+brew "tree-sitter"
+
+# LSP servers
+brew "lua-language-server"
+brew "bash-language-server"
+brew "pyright"
+brew "ruff"
+brew "gopls"
+brew "rust-analyzer"
+
 # macOS-only apps
 cask "iterm2"
 cask "visual-studio-code"
