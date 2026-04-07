@@ -2,7 +2,7 @@
 # These are user-level CLI tools installed via Linuxbrew.
 # System packages are handled separately (apt.list or rpm-ostree.list).
 
-brew "atuin"
+brew "zsh-autosuggestions"
 brew "fzf"
 brew "gh"
 brew "git-lfs"

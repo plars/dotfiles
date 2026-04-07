@@ -5,7 +5,7 @@ tap "buo/cask-upgrade"
 tap "mongodb/brew"
 
 # User CLI tools
-brew "atuin"
+brew "zsh-autosuggestions"
 brew "fzf"
 brew "gh"
 brew "git-lfs"

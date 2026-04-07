@@ -1,5 +1,6 @@
 virtualenv
 zsh
+zsh-autosuggestions
 fonts-powerline
 python3-pynvim
 neovim
