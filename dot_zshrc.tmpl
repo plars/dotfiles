@@ -1,12 +1,20 @@
-setopt histignorealldups sharehistory
+export PATH=/opt/homebrew/bin:$HOME/bin:$HOME/go/bin:$HOME/ado:$PATH
+
+# History configuration
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt SHARE_HISTORY          # Share history across all sessions in real time
+setopt HIST_IGNORE_DUPS       # Don't record a command if it's the same as the previous one
+setopt HIST_IGNORE_ALL_DUPS   # Remove older duplicate entries from history
+setopt HIST_FIND_NO_DUPS      # Don't show duplicates when searching
+setopt HIST_IGNORE_SPACE      # Don't record commands that start with a space
+setopt HIST_SAVE_NO_DUPS      # Don't write duplicates to the history file
+setopt HIST_REDUCE_BLANKS     # Remove extra blanks from commands before saving
+setopt EXTENDED_HISTORY       # Save timestamp and duration with each entry
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
 
 # Use modern completion system
 autoload -Uz compinit
@@ -88,4 +96,5 @@ tabtitle() {
   printf "\e]2;$1\a"
 }
 
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
