@@ -3,6 +3,8 @@
 # System packages are handled separately (apt.list or rpm-ostree.list).
 
 brew "zsh-autosuggestions"
+brew "eza"
+brew "zoxide"
 brew "fzf"
 brew "gh"
 brew "git-lfs"

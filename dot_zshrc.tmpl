@@ -74,6 +74,7 @@ for _zas in \
 done
 unset _zas
 
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Key bindings
@@ -85,11 +86,18 @@ bindkey '^[[1;5C' forward-word
 source <(fzf --zsh)
 
 
+if command -v eza &>/dev/null; then
+  alias ls="eza --group-directories-first"
+  alias ll="eza -l --group-directories-first"
+  alias la="eza -la --group-directories-first"
+  alias lt="eza --tree --level=2"
+else
 {{ if eq .chezmoi.os "darwin" -}}
-alias ls="ls -G -F"
+  alias ls="ls -G -F"
 {{ else -}}
-alias ls="ls -F --color=auto"
+  alias ls="ls -F --color=auto"
 {{ end -}}
+fi
 alias history='fc -il 1'
 
 # kubectl aliases
