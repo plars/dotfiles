@@ -1,4 +1,6 @@
 export PATH=/opt/homebrew/bin:$HOME/bin:$HOME/go/bin:$HOME/ado:$PATH
+export PATH=$PATH:~/bin:~/go/bin
+export PATH="$HOME/.local/bin:$PATH"
 
 # History configuration
 HISTFILE="$HOME/.zsh_history"
@@ -50,6 +52,19 @@ for _brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
 done
 unset _brew_prefix
 
+# CA certificates — only active when brew ca-certificates is installed
+if [[ -f "${HOMEBREW_PREFIX}/etc/ca-certificates/cert.pem" ]]; then
+  export CA_BUNDLE="${HOMEBREW_PREFIX}/etc/ca-certificates/cert.pem"
+  export CURL_CA_BUNDLE="$CA_BUNDLE"
+  export NODE_EXTRA_CA_CERTS="$CA_BUNDLE"
+  export REQUESTS_CA_BUNDLE="$CA_BUNDLE"
+  export SSL_CERT_FILE="$CA_BUNDLE"
+  # prefer homebrew certs, git and curl
+  export HOMEBREW_FORCE_BREWED_CA_CERTIFICATES=1
+  export HOMEBREW_FORCE_BREWED_GIT=1
+  export HOMEBREW_FORCE_BREWED_CURL=1
+fi
+
 # zsh-autosuggestions — check package locations then brew fallback
 for _zas in \
   "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
@@ -66,17 +81,9 @@ bindkey '^ ' autosuggest-execute  # ctrl-space: autosuggest-execute
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
-# fzf key bindings — check multiple install locations
-for _fzf_bindings in \
-  "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.zsh" \
-  "/usr/share/doc/fzf/examples/key-bindings.zsh" \
-  "/usr/share/fzf/key-bindings.zsh"; do
-  [[ -f "$_fzf_bindings" ]] && { source "$_fzf_bindings"; break; }
-done
-unset _fzf_bindings
+# FZF key bindings
+source <(fzf --zsh)
 
-export PATH=$PATH:~/bin:~/go/bin
-export PATH="$HOME/.local/bin:$PATH"
 
 {{ if eq .chezmoi.os "darwin" -}}
 alias ls="ls -G -F"
