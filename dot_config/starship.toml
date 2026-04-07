@@ -1,0 +1,111 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[╭─](bold #6c7086)\
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$git_metrics\
+$python\
+$golang\
+$rust\
+$kubernetes\
+$fill\
+$cmd_duration\
+[─╮](bold #6c7086)
+[╰─](bold #6c7086)\
+$character"""
+
+right_format = ""
+
+add_newline = true
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[❯](bold #a6e3a1)"
+error_symbol = "[❯](bold #f38ba8)"
+vimcmd_symbol = "[❮](bold #cba6f7)"
+
+[directory]
+format = "[ $path]($style)[$read_only]($read_only_style) "
+style = "bold #89b4fa"
+read_only = " 󰌾"
+read_only_style = "#f38ba8"
+truncation_length = 4
+truncate_to_repo = true
+home_symbol = "~"
+
+[git_branch]
+format = "[  $branch(:$remote_branch)]($style) "
+style = "bold #cba6f7"
+truncation_length = 24
+truncation_symbol = "…"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bold #f9e2af"
+conflicted = "[󰩌 CONFLICT](bold #f38ba8) "
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "[⇕ ⇡${ahead_count} ⇣${behind_count}](bold #f38ba8)"
+untracked = "[?${count}](#a6adc8) "
+stashed = "[ ](#89b4fa) "
+modified = "[!${count}](#fab387) "
+staged = "[+${count}](#a6e3a1) "
+renamed = "[»${count}](#cba6f7) "
+deleted = "[✘${count}](#f38ba8) "
+
+[git_state]
+format = "[$state( $progress_current/$progress_total)]($style) "
+style = "bold #f38ba8"
+rebase = "REBASE"
+merge = "MERGE"
+revert = "REVERT"
+cherry_pick = "CHERRY-PICK"
+bisect = "BISECT"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+
+[git_metrics]
+disabled = false
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+added_style = "#a6e3a1"
+deleted_style = "#f38ba8"
+only_nonzero_diffs = true
+
+[cmd_duration]
+format = "[󰔟 $duration]($style) "
+style = "#a6adc8"
+min_time = 500
+show_milliseconds = true
+min_time_to_notify = 30_000
+
+[python]
+format = "[ ${virtualenv:($virtualenv) }$version]($style) "
+style = "bold #f9e2af"
+version_format = "v${major}.${minor}"
+detect_extensions = ["py"]
+detect_files = ["pyproject.toml", "requirements.txt", ".python-version", "setup.py"]
+
+[golang]
+format = "[ $version]($style) "
+style = "bold #89dceb"
+version_format = "v${major}.${minor}"
+
+[rust]
+format = "[ $version]($style) "
+style = "bold #fab387"
+version_format = "v${major}.${minor}"
+
+[kubernetes]
+disabled = false
+format = "[󱃾 $context(::$namespace)]($style) "
+style = "bold #74c7ec"
+
+[kubernetes.context_aliases]
+".*-prod-.*" = "prod"
+".*-staging-.*" = "staging"
+".*-dev-.*" = "dev"
