@@ -1,0 +1,14 @@
+#!/bin/bash
+# Runs whenever nvim plugin configs change.
+# Plugin hash: {{ range (glob "dot_config/nvim/lua/plugins/*.lua") }}{{ include . | sha256sum }}{{ end }}
+
+set -euo pipefail
+
+if ! command -v nvim &>/dev/null; then
+  echo "nvim not found, skipping plugin sync"
+  exit 0
+fi
+
+echo "Syncing neovim plugins..."
+nvim --headless "+Lazy! sync" +qa 2>&1
+echo "Done."
