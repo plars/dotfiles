@@ -13,6 +13,7 @@ brew "git-lfs"
 # Neovim and dependencies
 brew "neovim"
 brew "tree-sitter"
+brew "tree-sitter-cli"
 
 # LSP servers
 brew "lua-language-server"
