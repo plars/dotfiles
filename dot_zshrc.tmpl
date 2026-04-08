@@ -2,6 +2,10 @@ export PATH=/opt/homebrew/bin:$HOME/bin:$HOME/go/bin:$HOME/ado:$PATH
 export PATH=$PATH:~/bin:~/go/bin
 export PATH="$HOME/.local/bin:$PATH"
 
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/paullarson/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
 # History configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
@@ -18,7 +22,21 @@ setopt EXTENDED_HISTORY       # Save timestamp and duration with each entry
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
+# Homebrew — detect prefix by location rather than hardcoding per-OS
+# The brew shellenv below sets HOMEBREW_PREFIX
+for _brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+  if [[ -x "$_brew_prefix/bin/brew" ]]; then
+    eval "$($_brew_prefix/bin/brew shellenv)"
+    break
+  fi
+done
+unset _brew_prefix
+
 # Use modern completion system
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+  FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
+  FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+fi
 autoload -Uz compinit
 compinit
 
@@ -42,15 +60,6 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# Homebrew — detect prefix by location rather than hardcoding per-OS
-for _brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
-  if [[ -x "$_brew_prefix/bin/brew" ]]; then
-    eval "$($_brew_prefix/bin/brew shellenv)"
-    break
-  fi
-done
-unset _brew_prefix
 
 # CA certificates — only active when brew ca-certificates is installed
 if [[ -f "${HOMEBREW_PREFIX}/etc/ca-certificates/cert.pem" ]]; then
@@ -100,16 +109,18 @@ else
 fi
 alias history='fc -il 1'
 
-# kubectl aliases
-# get all the containers in a pod
-# arg1 is namespace, arg2 is the pod name
-alias k-pod-containers="kubectl -n $1 get pods $0 -o jsonpath='{.spec.containers[*].name}'"
-
-# Functions
-# Set tab title
-tabtitle() {
-  printf "\e]2;$1\a"
-}
+# k8s stuff
+if type kubectl >/dev/null; then
+  source <(kubectl completion zsh)
+  alias k=kubectl
+  # get all the containers in a pod
+  # arg1 is namespace, arg2 is the pod name
+  alias k-pod-containers="kubectl -n $1 get pods $0 -o jsonpath='{.spec.containers[*].name}'"
+fi
+if type helm >/dev/null; then
+  source <(helm completion zsh)
+fi
 
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+[[ -f "$HOME/.zsh_local.sh" ]] && . "$HOME/.zsh_local.sh"
