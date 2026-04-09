@@ -30,7 +30,7 @@ error_symbol = "[✘](bold #f38ba8)"
 vimcmd_symbol = "[❮](bold #cba6f7)"
 
 [directory]
-format = "[ $path]($style)[$read_only]($read_only_style) "
+format = "[󰉋 $path]($style)[$read_only]($read_only_style) "
 style = "bold #89b4fa"
 read_only = " 󰌾"
 read_only_style = "#f38ba8"
@@ -39,7 +39,7 @@ truncate_to_repo = true
 home_symbol = "~"
 
 [git_branch]
-format = "[  $branch(:$remote_branch)]($style) "
+format = "[$symbol$branch(:$remote_branch)]($style) "
 style = "bold #cba6f7"
 truncation_length = 24
 truncation_symbol = "…"
@@ -52,7 +52,7 @@ ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "[⇕ ⇡${ahead_count} ⇣${behind_count}](bold #f38ba8)"
 untracked = "[?${count}](#a6adc8) "
-stashed = "[ ](#89b4fa) "
+stashed = "[󰏗 ](#89b4fa) "
 modified = "[!${count}](#fab387) "
 staged = "[+${count}](#a6e3a1) "
 renamed = "[»${count}](#cba6f7) "
@@ -84,19 +84,23 @@ show_milliseconds = true
 min_time_to_notify = 30_000
 
 [python]
-format = '[ (\($virtualenv\) )$version]($style) '
+symbol = "󰌠 "
+format = '[$symbol(\($virtualenv\) )$version]($style) '
 style = "bold #f9e2af"
 version_format = "v${major}.${minor}"
 detect_extensions = ["py"]
 detect_files = ["pyproject.toml", "requirements.txt", ".python-version", "setup.py"]
 
 [golang]
-format = "[ $version]($style) "
+format = "[$symbol$version]($style) "
 style = "bold #89dceb"
 version_format = "v${major}.${minor}"
 
 [rust]
-format = "[ $version]($style) "
+detect_files = [
+  "Cargo.toml",
+]
+format = "[$symbol$version]($style) "
 style = "bold #fab387"
 version_format = "v${major}.${minor}"
 
