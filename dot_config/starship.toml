@@ -84,7 +84,7 @@ show_milliseconds = true
 min_time_to_notify = 30_000
 
 [python]
-format = "[ ${virtualenv:($virtualenv) }$version]($style) "
+format = '[ (\($virtualenv\) )$version]($style) '
 style = "bold #f9e2af"
 version_format = "v${major}.${minor}"
 detect_extensions = ["py"]
