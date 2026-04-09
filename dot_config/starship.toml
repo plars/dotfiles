@@ -102,6 +102,13 @@ version_format = "v${major}.${minor}"
 
 [kubernetes]
 disabled = false
+detect_files = [
+  "Chart.yaml",
+  "kustomization.yaml",
+  "kustomization.yml",
+  "skaffold.yaml",
+]
+detect_folders = ["k8s", "kubernetes", "manifests"]
 format = "[󱃾 $context(::$namespace)]($style) "
 style = "bold #74c7ec"
 
