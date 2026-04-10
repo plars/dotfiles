@@ -3,8 +3,29 @@
 	name = {{ .name }}
 [core]
 	editor = vim
+	pager = delta
 [color]
 	ui = auto
+[interactive]
+	diffFilter = delta --color-only
+[diff]
+	colorMoved = default
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = Nord
+	file-style = bold #89b4fa
+	file-decoration-style = #45475a ul
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = #45475a box
+	line-numbers-left-style = #6c7086
+	line-numbers-right-style = #6c7086
+	line-numbers-minus-style = #f38ba8
+	line-numbers-plus-style = #a6e3a1
+	minus-style = syntax "#3d1f27"
+	minus-emph-style = syntax "#6b2d3e"
+	plus-style = syntax "#1e3a2e"
+	plus-emph-style = syntax "#2d5a3e"
 
 [url "git+ssh://pwlars@git.launchpad.net/"]
 	insteadof = lp:

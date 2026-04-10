@@ -6,6 +6,7 @@ tap "mongodb/brew"
 
 # User CLI tools
 brew "zsh-autosuggestions"
+brew "git-delta"
 brew "eza"
 brew "zoxide"
 brew "fzf"
