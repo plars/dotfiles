@@ -43,6 +43,7 @@
 	unstage = reset HEAD --
 	# only remove local branches if they are already landed in main
 	cleanup = "!git branch --merged main | grep  -v '\\*\\|main' | xargs -n 1 -r git branch -d"
+	sweep = !git branch --merged main | grep -v \"^\\*\\\\| main\\$\" | xargs -p -n 1 git branch -d
 
 [push]
 	default = simple
