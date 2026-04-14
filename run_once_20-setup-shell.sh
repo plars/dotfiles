@@ -16,5 +16,10 @@ if [[ "$SHELL" != "$ZSH_PATH" ]]; then
     if ! grep -qF "$ZSH_PATH" /etc/shells; then
         echo "$ZSH_PATH" | sudo tee -a /etc/shells
     fi
-    chsh -s "$ZSH_PATH"
+    if command -v chsh &>/dev/null; then
+        chsh -s "$ZSH_PATH"
+    else
+        # chsh unavailable (e.g. Bluefin/immutable Fedora — util-linux-user not installed)
+        sudo usermod -s "$ZSH_PATH" "$USER"
+    fi
 fi
