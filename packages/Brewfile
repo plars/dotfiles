@@ -1,6 +1,3 @@
-tap "homebrew/cask-versions"
-tap "homebrew/cask-drivers"
-tap "homebrew/services"
 tap "buo/cask-upgrade"
 tap "mongodb/brew"
 
