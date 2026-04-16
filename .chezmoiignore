@@ -1,0 +1,8 @@
+# Legacy directories — kept for reference, not deployed by chezmoi
+misc/
+
+# Package lists live here but are referenced by run_once scripts, not deployed to ~/
+packages/
+
+# Repo metadata
+README.md
