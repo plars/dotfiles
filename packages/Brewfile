@@ -27,5 +27,4 @@ brew "gopls"
 brew "rust-analyzer"
 
 # macOS-only apps
-cask "iterm2"
 cask "visual-studio-code"
