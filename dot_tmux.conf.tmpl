@@ -72,6 +72,8 @@ bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "sh
 # Catppuccin settings — must be set before loading the plugin
 set -g @catppuccin_flavor "mocha"
 set -g @catppuccin_window_status_style "rounded"
+set -g @catppuccin_window_number_color "#{@thm_overlay_2}"
+set -g @catppuccin_window_current_number_color "#{@thm_sapphire}"
 set -g @catppuccin_window_text "#W"
 set -g @catppuccin_window_current_text "#W"
 set -g @catppuccin_date_time_text "%h %d %H:%M"
@@ -89,30 +91,20 @@ run ~/.tmux/plugins/tmux/catppuccin.tmux
 set -g @catppuccin_battery_text "#(~/.tmux/plugins/tmux-battery/scripts/battery_percentage.sh)"
 set -g @catppuccin_status_battery "#[fg=#{@thm_lavender}]#[fg=#{@thm_crust},bg=#{@thm_lavender}]#(~/.tmux/plugins/tmux-battery/scripts/battery_icon.sh) #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_battery_text}#[fg=#{@thm_surface0}] "
 set -g @catppuccin_cpu_text "#(~/.tmux/plugins/tmux-cpu/scripts/cpu_percentage.sh)"
-set -g @catppuccin_status_cpu "#[fg=#{@thm_yellow}]#[fg=#{@thm_crust},bg=#{@thm_yellow}] #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_cpu_text}#[fg=#{@thm_surface0}] "
-
+set -g @catppuccin_status_cpu "#[fg=#{@thm_yellow}]#[fg=#{@thm_crust},bg=#{@thm_sapphire}] #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_cpu_text}#[fg=#{@thm_surface0}] "
 # Date/time: carry the sapphire accent through to the text so icon and time match
 set -g @catppuccin_status_date_time "#[fg=#{@thm_sapphire}]#[fg=#{@thm_crust},bg=#{@thm_sapphire}]󰃰 #[fg=#{@thm_sapphire},bg=#{@thm_surface0}]#{E:@catppuccin_date_time_text}#[fg=#{@thm_surface0}] "
-
-# Window status: use basic style to avoid thin rounded glyphs clashing with
-# the bolder powerline arrows on the status modules
-set -g @catppuccin_window_status_style "basic"
 
 # Status bar — configured last so nothing overwrites these settings
 set -g status-position bottom
 set -g status-left-length 100
 set -g status-right-length 100
 
-# Session indicator — solid powerline arrow () right edge, prefix turns it red
-set -g status-left "#[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=#{@thm_mantle}]#[fg=#{@thm_crust},bg=#{?client_prefix,#{@thm_red},#{@thm_green}},bold] #S #[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=#{@thm_mantle}]"
+# Session indicator
+# set -g status-left "#[fg=#{?client_prefix,#{@thm_red},#{@thm_green}},bg=#{@thm_mantle}] #S"
+set -g status-left ""
 
-# Window list — solid powerline arrows () and () matching the right-side modules
-# Clear tmux's default window-status-style (colour18/colour19) so it doesn't bleed into the wings/body
-set -g window-status-style "bg=#{@thm_mantle},fg=#{@thm_overlay_2}"
-set -g window-status-current-style "bg=#{@thm_mantle},fg=#{@thm_mauve}"
-set -g window-status-format "#[fg=#{@thm_surface0},bg=#{@thm_mantle}]#[fg=#{@thm_overlay_2},bg=#{@thm_surface0}] #I #W #[fg=#{@thm_surface0},bg=#{@thm_mantle}]"
-set -g window-status-current-format "#[fg=#{@thm_mauve},bg=#{@thm_mantle}]#[fg=#{@thm_crust},bg=#{@thm_mauve},bold] #I #W #[fg=#{@thm_mauve},bg=#{@thm_mantle}]"
-
-set -g status-right "#{E:@catppuccin_status_cpu}"
+# Right status bar
+set -g status-right "#[fg=#{@thm_sapphire}]#{E:@catppuccin_status_cpu}"
 set -ag status-right "#{E:@catppuccin_status_date_time}"
-set -ag status-right "#{E:@catppuccin_status_battery}"
+set -ag status-right "#{E:@catppuccin_status_battery}#[bg=default]#[fg=#{@thm_sapphire}] "
