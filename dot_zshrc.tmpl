@@ -120,6 +120,12 @@ fi
 if type helm >/dev/null; then
   source <(helm completion zsh)
 fi
+if type nvim >/dev/null; then
+  export VISUAL="nvim"
+  export EDITOR="nvim"
+  alias vi="nvim"
+  alias vim="nvim"
+fi
 
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
