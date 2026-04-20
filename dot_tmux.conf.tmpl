@@ -89,7 +89,7 @@ run ~/.tmux/plugins/tmux/catppuccin.tmux
 # tmux-battery and tmux-cpu interpolate #{...} placeholders in status-right/left, which
 # are never reached inside catppuccin's module variables. Call the scripts directly instead.
 set -g @catppuccin_battery_text "#(~/.tmux/plugins/tmux-battery/scripts/battery_percentage.sh)"
-set -g @catppuccin_status_battery "#[fg=#{@thm_lavender}]#[fg=#{@thm_crust},bg=#{@thm_lavender}]#(~/.tmux/plugins/tmux-battery/scripts/battery_icon.sh) #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_battery_text}#[fg=#{@thm_surface0}] "
+set -g @catppuccin_status_battery "#[fg=#{@thm_crust},bg=#{@thm_sapphire}]#(~/.tmux/plugins/tmux-battery/scripts/battery_icon.sh) #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_battery_text}#[fg=#{@thm_surface0}] "
 set -g @catppuccin_cpu_text "#(~/.tmux/plugins/tmux-cpu/scripts/cpu_percentage.sh)"
 set -g @catppuccin_status_cpu "#[fg=#{@thm_yellow}]#[fg=#{@thm_crust},bg=#{@thm_sapphire}] #[fg=#{@thm_text},bg=#{@thm_surface0}]#{E:@catppuccin_cpu_text}#[fg=#{@thm_surface0}] "
 # Date/time: carry the sapphire accent through to the text so icon and time match
