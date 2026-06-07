@@ -2,7 +2,13 @@
 	email = {{ .email }}
 	name = {{ .name }}
 [core]
+{{- if lookPath "nvim" }}
+	editor = nvim
+{{- else if lookPath "vim" }}
 	editor = vim
+{{- else }}
+	editor = vi
+{{- end }}
 	pager = delta
 [color]
 	ui = auto
