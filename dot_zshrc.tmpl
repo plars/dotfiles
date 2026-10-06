@@ -109,6 +109,9 @@ else
 fi
 alias history='fc -il 1'
 
+# ripgrep
+alias rg="rg --colors 'path:fg:green' --colors 'path:style:bold' --colors 'match:bg:yellow' --colors 'match:style:bold' --smart-case"
+
 # k8s stuff
 if type kubectl >/dev/null; then
   source <(kubectl completion zsh)
